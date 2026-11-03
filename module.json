@@ -2,7 +2,7 @@
     "name": "controls-profile-manager",
     "author": "emilia-s2",
     "version": "0.5.0",
-    "description": "Perfis de teclas, barras, glifos e EP, com revisão antes de aplicar.",
+    "description": "Perfis de teclas, barras, glifos e EP, com revisão antes de aplicar. (Commando Ctrl+Alt+K)",
     "disableAutoUpdate": false,
     "options": {
         "cliName": "Controls Profile",

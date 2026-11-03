@@ -2,7 +2,7 @@
 
 Guarde e restaure **teclas, posições das habilidades nas barras, páginas de glifos e distribuições de EP**. Interface em português, inglês e espanhol latino-americano, com detecção automática do idioma do Windows.
 
-Esta distribuição é para o Toolbox normal e clientes PC x64 com dados compatíveis com **TERA 100.2 / protocolo 376012**, como Asura e Astrix. O Phoenix modificado mantém uma versão própria; não substitua essa versão pelo pacote padrão, pois o tratamento de EP é diferente.
+Esta distribuição é para o Toolbox normal e clientes PC x64 com dados compatíveis com **TERA 100.2 / protocolo 376012**, como Asura. O Phoenix modificado mantém uma versão própria; não substitua essa versão pelo pacote padrão, pois o tratamento de EP é diferente.
 
 ## Instalação
 
