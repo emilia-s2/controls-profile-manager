@@ -1,0 +1,5 @@
+# Native Asura 100.2: the eight integrity bytes are supplied by Dispatch padding.
+# The Toolbox Connection handles the counter and hash; neither belongs in this body.
+array perks
+- uint32 id
+- uint32 level

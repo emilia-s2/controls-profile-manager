@@ -1,0 +1,53 @@
+{
+    "files": {
+        "index.js": "c492c1753f3bd9e1b801d4257393f824705941a84384d9d4f4e2630f16f879ab",
+        "lib/controls-profile.js": "245d1112cc7b530f0742fef94be91be093f1ddccb64b2e3b03de10d8a7820c10",
+        "lib/engine.js": "3dcc4df136b6874450a09128c7a7c3de22599bcd4c2b13401a33db1ebe50957a",
+        "lib/ep-controller.js": "3c7b60cfab27d842f630f1fe94b12e3e96e3ddb63d4214aa3147cc5015222b02",
+        "lib/ep-inspect.js": "81cb699a970f06a3385002a2ec3b1f5d9507ea3333b8b51d85b6b49437b38090",
+        "lib/ep-native-inspect.js": "17a50a8656ee17322ea37633d5a2a3bd89d881eb6e699cc692b34c3eebbae28f",
+        "lib/ep-pages.js": "3fe0e70b92df752fd896b0b0756a0b4159a7d380c69d05e95797457a349ae2ea",
+        "lib/ep-query-session.js": "976bded061d64f0a5f8cac72154fcd126b529cb3ee9c0bf2b098bdb19a295a7c",
+        "lib/ep-wire.js": "3acb5ece10f39a2e9c939029b80e0de82b61fac677bb8080fe6427d2c990d700",
+        "lib/glyph-catalog-inspect.js": "b59fe143c864b8f3c7b024cc0d3807c7a641e0a3cdc6f7d3d2e812f1dc7b2119",
+        "lib/glyph-catalog.js": "5850202c9164f320fd83944fc0d6d9173a454c0fc731eee2c683a20f753a1d3c",
+        "lib/glyph-presets.js": "69d236b04823842a911607024c431f3f21a3a303a639928692eb53a6393792eb",
+        "lib/gui-shortcut.js": "2d4677f639182ff0257a94b5fdaef79130f0ca97c4879353f0d8fdcb9ebf0246",
+        "lib/i18n.js": "b5fd3be463bc9c273d444e842970be14cbcbe70ca1a12e037606d7a19e24d8b6",
+        "lib/locales.json": "6cf62022cf19b8ed972ff820285e789c757131c41cd2e406534b050875aae297",
+        "lib/panel.js": "a6bfeb9999133fb693dcb7f80a89a83f9de70f888b8dae474f4e9f5f0aeec967",
+        "lib/player-build-inspect.js": "adb8abcc32497118348215d963519bc6dfe071d293969cc56240df18038f5c76",
+        "lib/preferences.js": "d207e223b56799e3e1e66bff411aa1b0897d4422ba5647e457c848718f70c37f",
+        "lib/recorder.js": "b6da8a5f9d44a058ff25356a99646fb908b15c92efa0c713b528675c63d2e176",
+        "lib/settings-format.js": "2085780afdf7f768387e4bef0161331a9163cde1a36897a2747579fa304bea76",
+        "lib/store.js": "e1e3381cb6f2ae88db5b5a48923c5ad81a66f7d09ccbb546c1762c5c3f2db82a",
+        "module.json": "6658c02dd30aff1a9f04706529b5bd1dbcbac321345c019d1e6489d083780b9d",
+        "native/ep-metadata-reader.cpp": "91a45c3ad313cbf3d4fba3e8cd43360a8cd9d8a8b281f6e4d18d0adff9af20d4",
+        "native/ep-metadata-reader.exe": "29d7653dd49d57f983c8c10df07ab6125a7725d9be5a3e458f064e63a74427fe",
+        "native/player-build-reader.cpp": "4d56b9814f5481db18b0bfe0aa2489b59e302a1449e47796ce54a65c43e1f403",
+        "native/player-build-reader.exe": "e10287ac8bccd937081ebde1aa80d6877443f48dd471827115a52c0fd80c1704",
+        "protocol/C_LEARN_EP_PERK.10002.def": "e64a1a3093738b8cd041833e356e8376569a977a65b70eb39bf670968390e4f2",
+        "README.md": "4505c2c834ba166204fced91e4856610f9e2fd591b94ba8f9945eb5d729401c0",
+        "settings_migrator.js": "cd00bd8646c2a1a28a131d52faf716f7ae916885ad08ac5c0f80529829cce4cf",
+        "ui/ep-panel.js": "5a1ea22074dbbcaedb374be5788caf57366cdfa02d80270d8d605b61322469ad",
+        "ui/i18n.js": "286246a55dae7ac47df99100ba9d25727e27a27bb70e0e62762e11930556b909",
+        "ui/index.html": "b3a0bc2357b97d8d22652ef5cf809b36d6a76c96d102dcab5a5f99d6d2c2b8ad",
+        "ui/panel.js": "8e12cfddc1fb26a34a965658b55444c4ec2d6fbc3d578646234d4fddb09ee0f0",
+        "ui/style.css": "610ef0341dc57158212a64fb8b41731d1a6cf74241e26d55c7195606e443c538"
+    },
+    "defs": {
+        "S_CHANGE_EP_POINT": 1,
+        "S_CREST_APPLY": 2,
+        "S_CREST_INFO": 2,
+        "S_LEARN_EP_PERK": 1,
+        "S_LOAD_EP_INFO": 2,
+        "S_LOGIN": [
+            14,
+            15
+        ],
+        "S_LOGIN_ACCOUNT_INFO": 3,
+        "S_RESET_EP_PERK": 1,
+        "S_SKILL_LIST": 2,
+        "TTB_S_LOAD_EP_PAGE": 1
+    }
+}
