@@ -16,9 +16,9 @@ function discardReview() {
 }
 function selectionChanged() {
     const p = selected(); UIText.text($('profile-detail'), p ? p.character + ' · ' + className(p.class) + ' · ' + new Date(p.createdAt).toLocaleString(UIText.locale) + (p.hasGlyphs?' · inclui páginas de glifos':' · sem glifos; salve um novo perfil para incluí-los') : 'Salve um perfil para começar.');
-    for(const option of $('selection').options)if(['all','glyphs','keys-glyphs','bars-glyphs'].includes(option.value))option.disabled=!p||!p.hasGlyphs;
+    for(const option of $('selection').options)if(['glyphs','keys-glyphs','bars-glyphs'].includes(option.value))option.disabled=!p||!p.hasGlyphs;
     if($('selection').selectedOptions.length&&$('selection').selectedOptions[0].disabled)$('selection').value='both';
-    const busy=!!state.pending||!!state.savePending||!!(state.ep&&state.ep.busy),needsGlyphs=['all','glyphs','keys-glyphs','bars-glyphs'].includes($('selection').value),glyphBlocked=needsGlyphs&&state.glyphPolicyReady===false;
+    const busy=!!state.pending||!!state.savePending||!!(state.ep&&state.ep.busy),needsGlyphs=['glyphs','keys-glyphs','bars-glyphs'].includes($('selection').value),glyphBlocked=needsGlyphs&&state.glyphPolicyReady===false;
     $('preview').disabled = !p || !state.ready || busy || glyphBlocked;
     $('delete').disabled = !p || !!state.pending || !!state.savePending;
     $('restore-status').hidden=state.ready&&!busy&&!glyphBlocked;
@@ -28,7 +28,7 @@ bridge.on('state', data => {
     UIText.apply(data.language||'pt');
     $('language').value=data.languagePreference||'auto';$('language').disabled=false;
     UIText.text($('language-auto'),'Automático: '+(UIText.names[data.language||'pt']||'English'));
-    UIText.text($('version'),data.version||'0.5.0');
+    UIText.text($('version'),data.version||'0.5.1');
     if(data.preview&&invalidReviews.has(data.preview.token))data=Object.assign({},data,{preview:null});
     if (state && (state.character !== data.character || state.class !== data.class)) { savingName = null; $('save-card').hidden = true; }
     state = data;epPanel.update(data);
@@ -55,8 +55,22 @@ bridge.on('state', data => {
     $('confirm').disabled=!data.preview;
     if (data.preview) {
         const p = data.preview;
-        UIText.text($('confirm'), 'Preparar '+modeName(p.selection));
-        UIText.text($('preview-description'), 'Aplicar “' + p.name + '” em ' + p.target + ': ' + modeName(p.selection) + '.');
+        const apply = p.applySelection || p.selection;
+        UIText.text($('confirm'), 'Preparar '+modeName(apply));
+        UIText.text($('preview-description'), 'Aplicar “' + p.name + '” em ' + p.target + ': ' + modeName(apply) + '.');
+        const skipped = p.skippedCategories || [];
+        $('preview-skipped').hidden = !skipped.length;
+        const missing = {
+            'learned-skills-unavailable':'Barras mantidas: a lista de habilidades ainda não está disponível.',
+            'no-compatible-skills':'Barras mantidas: nenhuma habilidade salva está disponível neste personagem.',
+            'profile-has-no-glyphs':'Glifos mantidos: o perfil não tem páginas de glifos.',
+            'no-compatible-glyphs':'Glifos mantidos: nenhum glifo salvo está disponível neste personagem.',
+            'glyph-points-insufficient':'Glifos mantidos: os pontos atuais não bastam para os glifos salvos.'
+        };
+        const notice = skipped.map(item => UIText.t(missing[item.reason] || (item.mode === 'bars'
+            ? 'Barras mantidas: o jogo ainda não forneceu os dados necessários.'
+            : 'Glifos mantidos: o jogo ainda não forneceu os dados necessários.')));
+        UIText.text($('preview-skipped'), notice.join(' '), true);
         UIText.text($('preview-details'), p.details.skills === null ? 'As posições das habilidades serão mantidas.' :
             p.details.skills + ' posições de habilidades compatíveis · ' + (p.details.adaptedRanks || 0) + ' posições ajustadas ao nível disponível · ' + p.details.omitted + ' posições do perfil não confirmadas · ' +
             p.details.preserved + ' itens/outras ações e ' + (p.details.preservedUnconfirmed || 0) + ' atalhos não listados preservados no destino.');

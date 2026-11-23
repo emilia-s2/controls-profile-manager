@@ -9,7 +9,6 @@ const ERRORS = {
     'ep-connection-unavailable':'A conexão com o servidor não está pronta para enviar EP. Nenhum pedido foi enviado.',
     'ep-send-blocked':'O Toolbox não encaminhou o pedido de EP. O registro local foi salvo; o mod não repetirá o envio.',
     'ep-send-unconfirmed':'Não foi possível comprovar o encaminhamento do pedido de EP. O registro local foi salvo; confira os pontos no jogo antes de continuar.',
-    'ep-phoenix-deferred':'A aplicação de EP no Phoenix será validada separadamente. As outras funções continuam disponíveis.',
     "ep-client-not-validated": "A aplicação de EP ainda não foi validada para este cliente. As outras funções continuam disponíveis.",
     "ep-fresh-connection-required": "Para habilitar o envio de EP recém-instalado, feche e reabra apenas o TERA uma vez com o Toolbox aberto. Não use poção para isso.",
     "ep-wire-unavailable": "O envio de EP não pôde ser preparado nesta sessão. Nenhum ponto foi enviado.",
@@ -45,6 +44,7 @@ const ERRORS = {
     'glyphs-changed':'A lista de glifos disponíveis mudou. Revise o perfil novamente.',
     'unsupported-protocol': 'Esta versão requer dados compatíveis com 100.2, protocolo 376012. Nenhuma configuração foi aplicada.',
     'already-matches': 'Os dados recebidos já correspondem ao perfil nas opções escolhidas.',
+    'combined-available-already-matches': 'As opções disponíveis já correspondem ao perfil. As barras ou os glifos indisponíveis foram mantidos.',
     'settings-changed': 'As configurações mudaram desde a revisão. Revise o perfil novamente antes de preparar.',
     'skills-changed': 'A lista de habilidades mudou. Revise o perfil novamente.',
     'preview-expired': 'A revisão expirou. Escolha o perfil e revise novamente.',
@@ -68,7 +68,7 @@ module.exports = function ControlsProfile(mod) {
     let lastIdentity = null, panel = null, feedback = 'Aguardando configurações do personagem.', disposed = false;
     let listingCache = null, disposeGuiShortcut = () => {};
     let glyphInspectionBusy = false;
-    let epInspector = null, epNativeInspector = null, ep = null, playerInspector = null;
+    let epInspector = null, epNativeInspector = null, ep = null;
     const catalogRequests=new Map(),catalogAttempts=new Map();
     function loadCatalog(meta=current()) {
         const job=meta.class;if(disposed||typeof mod.queryData!=='function'||typeof job!=='string'||!job||job.length>60||engine.catalogs.has(job)||catalogRequests.has(job))return;
@@ -109,7 +109,7 @@ module.exports = function ControlsProfile(mod) {
         if (!listingCache) listingCache = store.list();
         const listing = listingCache;
         const ready = !!engine.current && sameCharacter(meta, engine.current.meta);
-        return { language:Locale.resolve(mod),languagePreference:Locale.preference(mod.settings.language),version: '0.5.0', character: meta.character, class: meta.class, ready,
+        return { language:Locale.resolve(mod),languagePreference:Locale.preference(mod.settings.language),version: '0.5.1', character: meta.character, class: meta.class, ready,
             skills: engine.skillSet(meta) ? engine.skillSet(meta).size : 0, observedAt: ready ? engine.current.observedAt : null,
             glyphsReady:engine.glyphSet(meta)!==null,glyphsAvailable:engine.glyphSet(meta)?engine.glyphSet(meta).size:0,
             glyphCatalogReady:engine.catalogs.has(meta.class),glyphPoints:engine.glyphs&&sameCharacter(meta,engine.glyphs.meta)?engine.glyphs.points:null,
@@ -193,7 +193,7 @@ module.exports = function ControlsProfile(mod) {
                 case 'confirm':
                     if(ep&&(ep.pending||ep.querying))throw Error('ep-busy');
                     if (saveRequest) throw Error('pending-exists');
-                    if(!engine.preview||payload.selection!==engine.preview.selection||(!engine.preview.undo&&payload.profileId!==engine.preview.profileId)){
+                    if(!engine.preview||payload.selection!==engine.preview.requestedSelection||(!engine.preview.undo&&payload.profileId!==engine.preview.profileId)){
                         engine.preview=null;throw Error('review-selection-changed');
                     }
                     engine.confirm(String(payload.token || ''), meta);
@@ -296,7 +296,11 @@ module.exports = function ControlsProfile(mod) {
                     case 'gui': gui(); break;
                     case 'inspectep':
                         if(!epInspector)epInspector=require('./lib/ep-inspect')(mod,__dirname,current);
-                        if(args[0]==='native'){
+                        if(args[0]==='compatibility'){
+                            epInspector.start();
+                            require('./lib/ep-compatibility-inspect').collect(mod,ep,store,__dirname,current,()=>disposed).then(file=>{if(file&&!disposed){notify('Compatibilidade local de EP salva. Nenhum ponto foi alterado.');log('Diagnóstico EP: '+file);}}).catch(e=>{if(!disposed){notify('Consulta de compatibilidade EP indisponível. Nenhum ponto foi alterado.');logError(String(e.message||e));}});
+                        }
+                        else if(args[0]==='native'){
                             if(!epNativeInspector)epNativeInspector=new (require('./lib/ep-native-inspect').EPNativeInspect)(mod,__dirname);
                             epNativeInspector.run().then(file=>{if(!disposed){notify('Metadados locais de EP salvos. Nenhum ponto foi alterado.');log('Diagnóstico EP: '+file);}}).catch(e=>{if(!disposed){notify('Leitura local de EP indisponível. Nenhum ponto foi alterado.');logError(String(e.message||e)+(e.report?' · diagnóstico: '+e.report:''));}});
                         }
@@ -304,18 +308,6 @@ module.exports = function ControlsProfile(mod) {
                         else if(args[0]==='report'){epInspector.report();notify('Diagnóstico EP salvo. Nenhum ponto foi alterado.');}
                         else if(args[0]==='stop'){epInspector.stop();notify('Diagnóstico EP encerrado.');}
                         else{epInspector.start();notify('Leitura EP ativa por 8 minutos. Abra EP e alterne páginas já salvas; os pontos não serão modificados pelo mod.');}
-                        break;
-                    case 'inspectplayer':
-                        if(!playerInspector)playerInspector=require('./lib/player-build-inspect')(mod,__dirname,current);
-                        if(args[0]==='stop'){playerInspector.stop();notify('Diagnóstico de inspeção encerrado.');}
-                        else if(args[0]==='report'){playerInspector.report();notify('Diagnóstico de inspeção salvo.');}
-                        else{
-                            playerInspector.start();notify('Diagnóstico de inspeção ativo por 8 minutos. Apenas observa a inspeção normal; não aplica pontos.');
-                            if(args[0]==='native'){
-                                if(!epNativeInspector)epNativeInspector=new (require('./lib/ep-native-inspect').EPNativeInspect)(mod,__dirname);
-                                epNativeInspector.run('player').then(file=>{if(!disposed){notify('Metadados locais de inspeção salvos. Nenhum ponto foi alterado.');log('Diagnóstico de inspeção: '+file);}}).catch(e=>{if(!disposed){notify('Leitura local de inspeção indisponível. A observação dos pacotes continua ativa.');logError(String(e.message||e));}});
-                            }
-                        }
                         break;
                     case 'inspectglyphs':
                         if(glyphInspectionBusy){notify('Consulta de glifos em andamento. Aguarde.');break;}
@@ -354,9 +346,8 @@ module.exports = function ControlsProfile(mod) {
         update();
     };
     loadCatalog();
-    log('Controls Profile 0.5.0: /8 controlprofile abre a janela. Nada é aplicado sem preparação confirmada.');
+    log('Controls Profile 0.5.1: /8 controlprofile abre a janela. Nada é aplicado sem preparação confirmada.');
     this.destructor = () => {
-        if(playerInspector)playerInspector.close();
         if(epInspector)epInspector.destructor();
         if(epNativeInspector)epNativeInspector.close();
         disposed = true; if(ep)ep.close(); disposeGuiShortcut(); engine.cancel(); clearPendingTimer();

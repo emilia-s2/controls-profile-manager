@@ -20,7 +20,7 @@ window.EPPanel=class EPPanel {
   UIText.text(this.el('ep-received'), e.ready?'EP recebidos: '+e.receivedPages+' de '+e.unlockedPages+' páginas. Página ativa: '+(e.activePage+1)+'. Pontos: '+e.usedPoints+' de '+e.totalPoints+' usados.':'Aguardando os EP do personagem. Entre novamente no personagem para receber os dados.');
   UIText.text(this.el('ep-save-help'), 'Para incluir EP em um novo perfil, visite na janela EP do TERA cada página que deseja guardar e depois salve o perfil acima. O mod guarda somente as páginas recebidas; ele não troca páginas por você.');
   let status='Escolha o perfil e uma página salva. Os EP serão aplicados somente na página que está ativa no TERA.';
-  if(!e.wireReady)status=e.wireReason==='ep-phoenix-deferred'?'A aplicação de EP no Phoenix será validada separadamente. Teclas, barras e glifos continuam disponíveis.':e.wireReason==='ep-fresh-connection-required'?'Para habilitar a aplicação recém-instalada, feche e reabra apenas o TERA uma vez com o Toolbox aberto.':'A aplicação de EP ainda não foi validada para este cliente. Teclas, barras e glifos continuam disponíveis.';
+  if(!e.wireReady)status=e.wireReason==='ep-fresh-connection-required'?'Para habilitar a aplicação recém-instalada, feche e reabra apenas o TERA uma vez com o Toolbox aberto.':'A aplicação de EP ainda não foi validada para este cliente. Teclas, barras e glifos continuam disponíveis.';
   else if(e.uncertain)status='A aplicação anterior ainda precisa ser conferida. Entre novamente no personagem antes de tentar outra.';
   else if(e.busy)status=e.phase==='confirming'?'Aguardando a confirmação de EP do servidor.':'Consultando os custos e requisitos dos EP…';
   UIText.text(this.el('ep-status'), status);

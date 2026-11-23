@@ -1,9 +1,9 @@
 {
     "name": "controls-profile-manager",
     "author": "emilia-s2",
-    "version": "0.5.0",
-    "description": "Perfis de teclas, barras, glifos e EP, com revisão antes de aplicar. (Commando Ctrl+Alt+K)",
-    "disableAutoUpdate": false,
+    "version": "0.5.1",
+    "description": "Perfis de teclas, barras, glifos e EP, com revisão antes de aplicar.",
+    "disableAutoUpdate": true,
     "options": {
         "cliName": "Controls Profile",
         "guiName": "Perfis de teclas e barras",
@@ -11,8 +11,5 @@
         "settingsVersion": 1,
         "settingsFile": "config.json",
         "settingsMigrator": "settings_migrator.js"
-    },
-    "servers": [
-        "https://raw.githubusercontent.com/emilia-s2/controls-profile-manager/main/"
-    ]
+    }
 }

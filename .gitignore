@@ -27,6 +27,7 @@
 !/protocol/**/
 !/lib/controls-profile.js
 !/lib/engine.js
+!/lib/ep-compatibility-inspect.js
 !/lib/ep-controller.js
 !/lib/ep-inspect.js
 !/lib/ep-native-inspect.js
@@ -40,15 +41,12 @@
 !/lib/i18n.js
 !/lib/locales.json
 !/lib/panel.js
-!/lib/player-build-inspect.js
 !/lib/preferences.js
 !/lib/recorder.js
 !/lib/settings-format.js
 !/lib/store.js
 !/native/ep-metadata-reader.cpp
 !/native/ep-metadata-reader.exe
-!/native/player-build-reader.cpp
-!/native/player-build-reader.exe
 !/protocol/C_LEARN_EP_PERK.10002.def
 !/ui/ep-panel.js
 !/ui/i18n.js
@@ -147,7 +145,6 @@
 *.dll
 # Executaveis proprios usados pelos comandos de diagnostico do mod.
 !/native/ep-metadata-reader.exe
-!/native/player-build-reader.exe
 # Necessarios para publicar e preservar os hashes gerados.
 !/.gitignore
 !/.gitattributes
