@@ -1,4 +1,4 @@
-# Controls Profile Phoenix
+# Controls Profile
 
 Guarde e restaure **teclas, posições das habilidades nas barras, páginas de glifos e distribuições de EP** dos seus personagens.
 
@@ -13,12 +13,12 @@ Guarde e restaure **teclas, posições das habilidades nas barras, páginas de g
 
 ## Instalação
 
-Use esta cópia com o Toolbox preparado para o **TERA Phoenix 100.2 (PC x64, protocolo 376012)**. A edição padrão permite usar teclas, barras e glifos no Phoenix, mas a aplicação de EP nesse cliente fica disponível na cópia adaptada.
+Compatível com **Asura** e **Phoenix** na versão **TERA 100.2**.
 
 1. Coloque os arquivos em `tera-toolbox/mods/controls-profile-manager/`, com `module.json` diretamente nessa pasta.
-2. Abra o Toolbox em modo gráfico e depois inicie o Phoenix. Use uma única cópia do mod por Toolbox.
+2. Abra o Toolbox em modo gráfico e depois inicie o TERA. Use uma única cópia do mod por Toolbox.
 
-Depois de atualizar os arquivos do mod, reabra o Phoenix para carregar a versão nova e receber os dados do personagem.
+Depois de atualizar os arquivos do mod, reabra o TERA para carregar a versão nova e receber os dados do personagem.
 
 ## Salvar um perfil
 
@@ -38,7 +38,7 @@ Escolha o perfil e o que deseja restaurar. Clique em **Revisar aplicação**, co
 
 Ao escolher teclas, barras e glifos juntos, a revisão mostra o que pode ser restaurado e o que ficou de fora. Assim, um personagem sem glifos disponíveis ainda pode receber teclas e habilidades compatíveis.
 
-**Importar um perfil do Asura** · Copie o JSON desejado da pasta `profiles/` do mod no Asura para a pasta equivalente no Phoenix e clique em **Atualizar**. Os mesmos arquivos podem ser copiados no sentido inverso. Distribuições de EP só aparecem em perfis que as incluíram no salvamento.
+**Importar um perfil** · Copie o JSON desejado da pasta `profiles/` de origem para a pasta `profiles/` do Toolbox de destino e clique em **Atualizar**. Distribuições de EP só aparecem em perfis que as incluíram no salvamento.
 
 ## EP — pontos de aprimoramento
 
@@ -46,7 +46,7 @@ Ao escolher teclas, barras e glifos juntos, a revisão mostra o que pode ser res
 2. No mod, escolha um perfil com EP e a página salva que deseja usar.
 3. Clique em **Revisar EP**, confira o custo e confirme. Os pontos são aplicados na página ativa assim que o servidor confirma, sem voltar à seleção.
 
-O mod acrescenta apenas os níveis necessários. O mod usa os custos, níveis e requisitos do Phoenix para revisar a distribuição, inclusive quando ela veio do Asura. O personagem precisa ser da mesma classe, ter os talentos exigidos e ter pontos suficientes no destino.
+O mod acrescenta apenas os níveis necessários e usa os custos, níveis e requisitos do destino para revisar a distribuição. O personagem precisa ser da mesma classe, ter os talentos exigidos e ter pontos suficientes no destino.
 
 Se a página já tem talentos fora da distribuição ou níveis acima dos salvos, faça o reset manual no TERA antes de tentar. Pontos confirmados só podem ser reduzidos pelo reset do jogo. Se o servidor demorar a responder, confira os pontos no TERA antes de tentar novamente.
 
